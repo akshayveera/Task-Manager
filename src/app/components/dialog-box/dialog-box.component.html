@@ -1,0 +1,21 @@
+
+<div style="
+    padding: 30px;">
+
+    <h5 mat-dialog-title >{{ data.title }}</h5>
+    <div mat-dialog-content>
+      <p>{{ data.message }}</p>
+    </div>
+
+    @if(data.message.includes('?')) {
+      <div class="example-button-row" style="display: flex; justify-content: flex-end; gap: 10px;">
+          <button mat-flat-button (click)="onNoClick()">No</button>
+          <button mat-stroked-button (click)="onYesClick()">Yes</button>
+      </div>
+    } @else {
+      <div class="example-button-row" style="display: flex; justify-content: flex-end; gap: 10px;">
+        <button mat-flat-button (click)="onNoClick()">Ok</button>
+      </div>      
+    }
+
+</div>

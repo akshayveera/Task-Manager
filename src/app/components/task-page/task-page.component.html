@@ -1,0 +1,117 @@
+
+<h4 style="color: var(--main-text); font-weight: 500; text-align: center; margin-top: 20px;">Task Details</h4>
+
+<section  style="width: 100%; min-height: 400px; display: flex; justify-content: center; align-items: center; ">
+
+    <mat-card 
+        appearance="outlined" 
+        style="width: 60% ; 
+            margin-top: 20px; 
+            height: fit-content; 
+            padding: 30px; 
+            display: flex; 
+            flex-direction: column; 
+            gap : 20px"
+        *ngIf="taskDetails; else nullCase">
+
+        
+        <mat-card-header 
+            style="
+                display: flex; 
+                flex-direction: column;
+                ">
+
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                
+                <div style="
+                        display: flex;
+                        flex-direction: row;
+                        gap: 0px;
+                    ">
+                    <ng-container *ngFor="let i of priorityArr" 
+                        >
+                        <img src="https://cdn-icons-png.flaticon.com/128/15336/15336296.png" style="height: 25px; display: inline;" />            
+                    </ng-container>        
+                    
+                </div>
+
+                <!-- <div>
+                    <mat-icon>edit</mat-icon>
+                    <mat-icon (click)="openDialog()" class="button" >delete</mat-icon>
+
+                </div> -->
+
+                <div style="display: flex; gap: 20px;">
+                    <button mat-mini-fab aria-label="Example icon button with a menu icon" (click)="goToEditTask()">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-mini-fab aria-label="Example icon button with a menu icon" (click)="openDialog()">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <!-- <img (click)="goToEditTask()" src="https://cdn-icons-png.flaticon.com/128/7083/7083704.png" style="height: 40px; display: inline; cursor: pointer;">
+                    <img (click)="openDialog()"  src="https://cdn-icons-png.flaticon.com/128/9035/9035017.png" style="height: 40px; display: inline; cursor: pointer;" /> -->
+
+                </div>
+                
+
+                <!-- <div class="example-button-container">
+                    <button mat-fab ">
+                    </button>
+                </div> -->
+                
+            </div>
+
+            <h4 style="color: var(--main-text); font-weight: 500;">{{taskDetails.title}}</h4>
+            
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <h6 style="font-weight: 500; color: rgb(121, 121, 121);">{{taskDetails.category | titlecase}}</h6>
+
+                <div style="cursor: pointer; position: relative ; bottom: 5px;">
+                    @if(taskDetails.status === 'completed') {
+                        <mat-chip-option selected (click)="handleStatusClick()">{{taskDetails.status}}</mat-chip-option>
+                    } @else {
+                        <mat-chip (click)="handleStatusClick()">{{taskDetails.status}}</mat-chip>
+                    }
+        
+                </div>
+
+            </div>
+    
+        </mat-card-header>
+    
+        <mat-card-content>
+            <p style="font-size: 1.2rem;">{{taskDetails.desc}}</p>
+        </mat-card-content>
+    
+
+        <div style="
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding-inline: 20px;">
+            
+            <div>{{taskDetails.postedAt}}</div>
+            <div>{{taskDetails.deadline}}</div>
+        </div>
+
+        <div style="width: 85%;
+            height: 10px;
+            border: 2px solid var(--main-text);
+            border-top: transparent;
+            position: relative;
+            left: 50px;">
+        </div>
+        
+    </mat-card>
+
+</section>
+
+<ng-template #nullCase>
+    <div class="example-button-row" >
+        <button routerLink="" mat-flat-button>Go to Dashboard</button>
+    </div>
+</ng-template>
+
+  
+
+

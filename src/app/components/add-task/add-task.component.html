@@ -1,0 +1,112 @@
+
+<mat-card appearance="outlined">
+
+    <form [formGroup]="taskInfo" appearance="outlined"  (ngSubmit)="handleSubmit()"
+        style="
+            display: flex; 
+            flex-direction: column;
+            gap: 5px;
+            ">
+    
+        <div class="title-cont" style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-bottom: 10px;">
+
+            <ng-container *ngIf="!taskId else editTask">
+                <h5 class="title" style="font-weight: 500;">Add a Task</h5>
+            </ng-container>
+
+            <ng-template #editTask>
+                <h5 class="title" style="font-weight: 500;">Edit Task</h5>
+            </ng-template>
+            
+            <div style="display: flex; gap: 10px;">
+                <button mat-flat-button type="button" (click)="handleReset()">Reset</button>
+
+                <ng-container *ngIf="!taskId ">
+                    <button mat-flat-button type="submit" [disabled]="taskInfo.invalid">Submit</button>
+                </ng-container>
+
+                <ng-container *ngIf="taskId ">
+                    <button mat-flat-button type="button" (click)="updateTask()" [disabled]="taskInfo.invalid">update</button>
+                </ng-container>
+                
+            </div>
+        </div>
+    
+        <mat-form-field>
+            <mat-label>Title </mat-label>
+            <input formControlName="title" matInput>
+            <mat-error *ngIf="taskInfo?.get('title')?.touched && taskInfo.get('title')?.errors?.['required']">
+                Title is required
+            </mat-error>
+        </mat-form-field>
+    
+        <mat-form-field >
+            <mat-label>Category</mat-label>
+
+                <mat-select formControlName="category" cdkAriaLive="polite" class="cat-in" >
+                
+
+                    <div class="add-cat" >
+                        <input class="add-cat-input" formControlName="newCategory" placeholder="add a category"  > 
+    
+                        <button mat-flat-button (click)="addCategory()">add</button>
+                    </div>
+                    
+                    <mat-option *ngIf="!cats.length">
+
+                    </mat-option>
+    
+    
+                    @for(item of cats; track $index) {
+                        <mat-option [value]="item.name" style="display: flex;">
+                            <span>{{item.name}} </span>
+                            <!-- <span (click)="deleteCategory(a$index)">Delete</span> -->
+                        </mat-option>
+                    }
+                </mat-select>
+            
+            <mat-error *ngIf="taskInfo?.get('category')?.touched && taskInfo.get('category')?.errors?.['required']">
+                Category is required
+            </mat-error>
+        </mat-form-field>
+        
+    
+        <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea formControlName="desc" matInput></textarea>
+            <mat-error *ngIf="taskInfo?.get('desc')?.touched && taskInfo.get('desc')?.errors?.['required']">
+                Description is required
+            </mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field class="example-full-width deadline">
+            <mat-label>Choose deadline</mat-label>
+            <input formControlName="deadline" matInput [matDatepicker]="picker">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker">
+                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="taskInfo?.get('deadline')?.touched && taskInfo.get('deadline')?.errors?.['required']">
+                Deadline is required
+            </mat-error>
+        </mat-form-field>
+    
+        <mat-form-field>
+            <mat-label>Priority</mat-label>
+            <mat-select formControlName="priority">
+            <mat-option value="1">1</mat-option>
+            <mat-option value="2">2</mat-option>
+            <mat-option value="3">3</mat-option>
+            <mat-option value="4">4</mat-option>
+            <mat-option value="5">5</mat-option>
+            </mat-select>
+            <mat-error *ngIf="taskInfo?.get('priority')?.touched && taskInfo.get('priority')?.errors?.['required']">
+                Priority is required
+            </mat-error>
+        </mat-form-field>
+    
+    </form>
+
+</mat-card>

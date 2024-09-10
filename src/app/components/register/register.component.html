@@ -1,0 +1,65 @@
+<section class="container">
+    
+    <article class="left">
+        <img src="assets/login.jpg" alt="">  
+        <div class="quote">
+            <p>Either run the day,</p>      
+            <p>or the day runs you</p>      
+        </div>
+    </article>
+
+    <article class="right">
+
+        <h5>Register</h5>
+        
+        <form class="form" [formGroup]="registerData" (ngSubmit)="registerUser()">
+
+            <mat-form-field class="example-full-width pb">
+                <mat-label>Enter your name</mat-label>
+                <input matInput formControlName="name">
+                <mat-error *ngIf="registerData.get('name')?.hasError('required')">
+                    Name is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width pb">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
+                <mat-error *ngIf="registerData.get('email')?.hasError('email') && !registerData.get('email')?.hasError('required')">
+                    Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="registerData.get('email')?.hasError('required')">
+                    Email is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Password</mat-label>
+                <input matInput formControlName="password" [type]="hide() ? 'password' : 'text'">
+                <button
+                    type="button"
+                  mat-icon-button
+                  matSuffix
+                  (click)="clickEvent($event)"
+                  [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hide()"
+                >
+                  <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+                <mat-error *ngIf="registerData.get('password')?.hasError('minlength') && !registerData.get('password')?.hasError('required')">
+                    Password should contain minimum six characters
+                </mat-error>
+                <mat-error *ngIf="registerData.get('password')?.hasError('required')">
+                    Password is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>  
+
+            <!-- Move the submit button inside the form tag -->
+            <button type="submit" mat-flat-button >Register</button>
+
+        </form>
+
+        <p routerLink="/login">Already registered?</p>
+
+    </article>
+</section>

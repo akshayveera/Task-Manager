@@ -1,0 +1,36 @@
+
+<mat-form-field>
+    <mat-label>Category</mat-label>
+    <mat-select [(ngModel)]="selectedCat" name="category" (selectionChange)="doFilter()">
+        <mat-option [value]="'all'" default>All categories</mat-option>
+        @for (item of categories; track $index) {
+        <mat-option [value]="item">{{item}}</mat-option>
+        }
+    </mat-select>
+</mat-form-field>
+
+<mat-form-field>
+    <mat-label>Status</mat-label>
+    <mat-select [(ngModel)]="selectedStatus" name="status" (selectionChange)="doFilter()">
+        <mat-option [value]="'all'" default>All Status</mat-option>
+        <mat-option [value]="'incomplete'" default>Incomplete</mat-option>
+        <mat-option [value]="'completed'" default>Completed</mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-form-field>
+    <mat-label>Sort By</mat-label>
+    <mat-select [(ngModel)]="selectedSorting" name="sorting" (selectionChange)="doFilter()">
+        <mat-option [value]="'date'" default>Date posted</mat-option>
+        <mat-option [value]="'priority'" default>Priority</mat-option>
+        <mat-option [value]="'deadline'" default>Deadline</mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-form-field>
+    <mat-label>Order</mat-label>
+    <mat-select [(ngModel)]="selectedOrder" name="order" (selectionChange)="doFilter()">
+        <mat-option [value]="'asc'" default>Ascending</mat-option>
+        <mat-option [value]="'des'" >Descending</mat-option>
+    </mat-select>
+</mat-form-field>  

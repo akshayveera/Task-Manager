@@ -1,0 +1,13 @@
+
+.example-card {
+    max-width: 400px;
+}
+
+.button {
+    color: var(--main-text); 
+    font-size: 3em; 
+    cursor: pointer; 
+    border: 2px solid var(--main-text);
+    display: grid;
+    place-items: center;
+}

@@ -1,0 +1,44 @@
+
+.example-list-wrapping {
+    max-width: 500px;
+  }
+
+.title {
+  font-weight: 500;
+  color: var(--main-text);
+  margin-bottom: 30px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  
+}
+
+.users-list {
+  width: 70%;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.user-card {
+  border: 1px solid gray ;  
+  border-radius: 10px;
+  padding: 15px;
+  position: relative;
+}
+
+.user-name {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--main-text);
+  margin: 0px;
+}
+
+.user-email {
+  margin: 0px;
+}

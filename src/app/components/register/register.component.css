@@ -1,0 +1,115 @@
+
+@import url('https://fonts.googleapis.com/css2?family=New+Amsterdam&display=swap');
+
+.container {
+    height: 100vh;
+    overflow-y: hidden;
+    display: flex;
+}
+
+.left {
+    width: 65%;
+    position: relative;
+}
+
+.quote {
+    position: absolute;
+    right: 100px;
+    top: 100px;
+    z-index: 10;
+    font-family: "New Amsterdam", sans-serif;
+    font-weight: 400;
+    font-size: 3.5rem;
+    color: var(--main-text);
+    line-height: 1rem;
+}
+
+.left img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    align-self: stretch;
+}
+
+.right {
+    width: 35%;
+    align-self: center;
+    justify-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.right h5 {
+    color: var(--main-text);
+    font-weight: 500;
+}
+
+.right p {
+    cursor: pointer;
+    color: var(--main-text);
+    font-weight: 500;
+}
+
+.form {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pb {
+    padding-bottom: 10px;
+}
+
+.example-full-width{
+    width: 100%;
+}
+
+@media screen and (width < 1020px) {
+    .left {
+        width: 50%;
+    }
+
+    .right {
+        width: 50%;
+    }
+
+    .form {
+        width: 90%;
+    }
+
+    .quote {
+        font-size: 2.3rem;
+        right: 20px;
+    }
+}
+
+@media screen and (width < 600px) {
+    .left {
+        width: 100%;
+    }
+
+    .right {
+        width: 100%;
+    }   
+
+    .container {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .quote {
+        right: 100px;
+        top: 70px;
+    }
+}
+
+@media screen and (width < 450px){
+    .quote {
+        font-size: 2rem;
+        right: 50px;
+        top: 50px;
+    }
+}

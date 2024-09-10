@@ -1,0 +1,128 @@
+
+<mat-card
+    appearance="outlined" 
+    class="task-card" 
+    style="cursor: pointer; 
+        padding: 20px; 
+        padding-bottom: 10px;
+        width: 380px;
+        "
+        
+    [ngStyle] = "{
+        'background-color' : item?.status === 'completed' ? '#fde8ef' : '#fff',
+    }"
+    >
+
+    <div style="display: flex; justify-content: space-between;">
+        <div style="
+                display: flex;
+                flex-direction: row;
+                gap: 0px;
+            ">
+            <ng-container *ngFor="let i of priorityArr" 
+                >
+                <img src="https://cdn-icons-png.flaticon.com/128/15336/15336296.png" style="height: 20px; display: inline;" />            
+            </ng-container>
+    
+        </div>
+
+        <div style="
+            border: 1px solid var(--main-text); 
+            padding: 0px 10px;
+            border-radius: 10px;
+            color: var(--main-text);
+            background-color: var(--hover-color);">
+                {{item?.category}}
+        </div>
+
+    </div>
+
+
+    <h6 (click)="handleTaskClick()" style="margin: 10px 0px; color: var(--main-text);">{{item?.title.slice(0, 25) + (item.title.length>25 ? "..." : "")}}</h6>
+    
+    
+    <div>
+        {{item?.desc.slice(0, 70) + (item.desc.length>70 ? "..." : "")}}
+    </div>
+
+
+    <mat-checkbox style="margin-block: 10px;" class="example-margin"
+        [checked]="item?.status === 'completed'"
+        (change)="handleStatusClick()">
+            {{item?.status}}
+    </mat-checkbox>
+
+
+    <div style="
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.8rem;">
+        
+        <div>{{item?.postedAt}}</div>
+        <div>{{item?.deadline}}</div>
+    </div>
+
+    <div style="display: flex;
+        position: relative;
+        left: 93px;
+        bottom: 15px;">
+        <div style="background-color: var(--main-text);
+            height: 9px;
+            width: 9px;
+            border-radius: 100%;
+            z-index: 10;">
+    
+        </div>
+        <div style="width: 40%;
+            height: 10px;
+            border-bottom: 2px solid var(--main-text);
+            position: relative;
+            bottom: 4px;
+            right: 2px;">
+        </div>
+        <div style="background-color: var(--main-text);
+            height: 9px;
+            width: 9px;
+            border-radius: 100%;
+            z-index: 10;
+            position: relative;
+            right: 6px;">
+    
+        </div>
+
+    </div>
+
+
+    <img src="https://cdn-icons-png.flaticon.com/128/9035/9035017.png" alt=""
+        (click)="openConfirmDialog()"
+        style="
+            height: 40px;
+            position: absolute;
+            top: -15px;
+            right: -15px;">
+
+    <!-- <div class="task-foot" 
+        style="display: flex; 
+            justify-content: 
+            space-between;">
+
+        <div class="task-chips" 
+            style="display: flex;
+                gap: 10px;
+                ">
+            <mat-chip>Priority - {{item?.priority}}</mat-chip>
+            <mat-chip>{{item?.category}}</mat-chip>
+            @if(item?.status === 'completed') {
+                <mat-chip-option selected (click)="handleStatusClick()">{{item?.status}}</mat-chip-option>
+            } @else {
+                <mat-chip (click)="handleStatusClick()">{{item?.status}}</mat-chip>
+            }
+        </div>
+        <mat-chip>deadline : {{item?.deadline}}</mat-chip>
+    </div> -->
+
+    
+
+</mat-card>    
+        
+    

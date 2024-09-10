@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+
+*{
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color : #ffd9e1;
+    --main-text : #ba005c;
+    --hover-color: hsl(349, 100%, 97%);
+}
+
+html, body { height: 100%; }
+body { 
+    margin: 0px; 
+    padding: 0px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+body{
+    overflow-x: hidden;
+}
+
+
+.mdc-dialog--open .mat-mdc-dialog-surface, .mdc-dialog--closing .mat-mdc-dialog-surface{
+    width: 400px;
+    position: relative;
+    right: 50px;
+    bottom: 200px;
+}
