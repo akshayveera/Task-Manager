@@ -56,22 +56,15 @@ export class LoginComponent {
     if (this.loginData.valid) {
       this.api.postData("/user-login", this.loginData.value).subscribe({
         next : (res) => {
-          
           localStorage.setItem("token", res.token);
-          // const role = console.log("role",this.auth.getRole());
+          localStorage.setItem("userData", JSON.stringify(res.user));
           
-          if(this.auth.getRole() === "admin") {
-            
-            localStorage.setItem("role", "admin");
-            localStorage.setItem("name", "admin");
-            this.router.navigateByUrl("/admin");
-          } else if(this.auth.getRole() === "user") {
-            
-            console.log("user")
-            localStorage.setItem("role", "user");
-            localStorage.setItem("name", res.name);
-            this.router.navigateByUrl("/");
+          if(res.user.role === 'admin') {
+            this.router.navigateByUrl('/admin');
+          } else {
+            this.router.navigateByUrl('');
           }
+          
         },
         error : (err) => {
           console.log(err);

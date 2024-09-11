@@ -18,8 +18,10 @@ export class NavbarComponent {
 
   router = inject(Router);
 
-  role = localStorage.getItem("role");
-  name = localStorage.getItem("name");
+  user = JSON.parse(localStorage.getItem("userData") || '{}');
+
+  constructor () {
+  }
 
   logoutUser() {
     localStorage.clear();

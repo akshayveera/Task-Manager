@@ -4,12 +4,12 @@
     <div>
         <button mat-button routerLink="">Tasks</button>    
         <button mat-button routerLink="/add-task">Add Task</button> 
-        <button mat-button routerLink="/admin" *ngIf="role === 'admin'" >Users</button> 
+        <button mat-button routerLink="/admin" *ngIf="user.role === 'admin'" >Users</button> 
     </div>
 
     <div class="right">
         <div class="name">
-            {{name}}
+            {{user.name}}
         </div>
         <img 
             src="https://cdn-icons-png.flaticon.com/128/7087/7087076.png" 

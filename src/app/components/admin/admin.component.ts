@@ -28,7 +28,8 @@ export class AdminComponent implements OnInit {
     
     this.api.getData("/all-users").subscribe({
       next: (res: any) => {
-        this.usersList = res;
+        // console.log("res", res);
+        this.usersList = res.users;
       },
       error: (err: any) => {
         console.log(err);

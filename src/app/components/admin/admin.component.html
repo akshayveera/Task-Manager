@@ -4,32 +4,38 @@
 
     <div class="users-list" >  
 
-      <ng-container *ngFor="let user of usersList; trackBy : trackByUserId">  
-        <ng-container *ngIf="user.name.toLowerCase()!== 'admin'">
-          <article class="user-card">
-            <p class="user-name">{{user.name}}</p>
-            <p class="user-email">{{user.email}}</p>  
-            <div style="
-                display: flex;
-                flex-direction: row;
-                gap: 0px;
-            ">
-            
-            <img 
-              src="https://cdn-icons-png.flaticon.com/128/9035/9035017.png"
-              (click)="openConfirmDialog(user._id)"
-              style="
-                height: 30px;
-                position: absolute;
-                top: -10px;
-                right: -10px;
-                cursor: pointer;">
-    
-        </div>
-          </article>        
-
-        </ng-container>    
+      <ng-container *ngIf="usersList.length > 0; else nouser">
+        <ng-container *ngFor="let user of usersList; trackBy : trackByUserId">  
+          <ng-container *ngIf="user.name.toLowerCase()!== 'admin'">
+            <article class="user-card">
+              <p class="user-name">{{user.name}}</p>
+              <p class="user-email">{{user.email}}</p>  
+              <div style="
+                  display: flex;
+                  flex-direction: row;
+                  gap: 0px;
+              ">
+              
+              <img 
+                src="https://cdn-icons-png.flaticon.com/128/9035/9035017.png"
+                (click)="openConfirmDialog(user._id)"
+                style="
+                  height: 30px;
+                  position: absolute;
+                  top: -10px;
+                  right: -10px;
+                  cursor: pointer;">
+      
+              </div>
+            </article>        
+  
+          </ng-container>    
+        </ng-container>
       </ng-container>
+
+      <ng-template #nouser>
+        <p>no users</p>
+      </ng-template>
     </div>
 </section>
 

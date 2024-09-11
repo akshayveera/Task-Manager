@@ -34,10 +34,12 @@ export const routes: Routes = [
     {
         path : "task/:id",
         component : TaskPageComponent,
+        canActivate : [authGuard],
     },
     {
         path : "login",
         component : LoginComponent,
+        canActivate : [authGuard],
     },
     {
         path : "register",
@@ -45,6 +47,7 @@ export const routes: Routes = [
     },
     {
         path : "**",
-        component: NotFoundComponent
+        component: NotFoundComponent,
+        canActivate : [authGuard],
     }
 ];

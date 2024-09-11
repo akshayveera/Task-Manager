@@ -1,5 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from './api.service';
+import { firstValueFrom } from 'rxjs';
 
 
 @Injectable({
@@ -7,46 +9,49 @@ import { Router } from '@angular/router';
 })
 export class AuthService {  
 
-  isTokenValid() {
+  api = inject(ApiService);
+
+  async isTokenValid() : Promise<boolean> {
 
     const token = localStorage.getItem('token');
 
     if(token) {
-  
-      const userInfo = JSON.parse(atob(token.split('.')[1]));
-      const exp = userInfo.exp;
-      const now = Math.floor(Date.now() / 1000);
-  
-      if(exp >= now) {
+      try {
+        const data = await firstValueFrom(this.api.getData("/user/me"));
+        // console.log("api data", data);
         return true;
-      } else {
+      } catch(err) {
+        // console.log("err", err);
         return false;
-      }
-  
+      }      
     } else {
-        return false;
+      return false;
     }
-
   }    
 
-  getRole() {
+
+  async isAdmin() : Promise<boolean> {
 
     const token = localStorage.getItem('token');
 
     if(token) {
+      try {
+        const data = await firstValueFrom(this.api.getData("/user/me"));
+        
+        if(data.role === 'admin') {
+          return true;
+        } else {
+          return false;
+        }
 
-      const userInfo = JSON.parse(atob(token.split('.')[1]));
-  
-      const isAdmin = userInfo.email.startsWith("admin");
-  
-      if(isAdmin) {
-        return "admin";
-      } else {
-        return "user";
-      }
+      } catch(err) {
 
+        return false;
+      }      
+    } else {
+      return false;
     }
 
-    return null;
   }
+
 }
