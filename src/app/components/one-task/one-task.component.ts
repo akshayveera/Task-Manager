@@ -1,4 +1,4 @@
-import { CommonModule, JsonPipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import {MatCardModule} from '@angular/material/card';
 import {MatChipsModule} from '@angular/material/chips';
@@ -16,13 +16,11 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 import { ApiService } from '../../services/api.service';
-import { FiltersComponent } from '../filters/filters.component';
 
 @Component({
   selector: 'app-one-task',
   standalone: true,
   imports: [
-    JsonPipe,
     MatCardModule,
     MatChipsModule,
     MatIconModule,
@@ -35,8 +33,8 @@ import { FiltersComponent } from '../filters/filters.component';
     MatSlideToggleModule,
     FormsModule,
     MatCheckboxModule,
-    DialogBoxComponent,
-    MatButtonModule
+    MatButtonModule,
+    DatePipe
   ],
   templateUrl: './one-task.component.html',
   styleUrl: './one-task.component.css',
@@ -47,7 +45,7 @@ export class OneTaskComponent implements OnInit {
   @Input() item : any;
   @Input() tasksData: any;
   @Input() filteredTasks: any;
-  @Output() delete = new EventEmitter<any>(); 
+  @Output() delete = new EventEmitter<any>();
   router = inject(Router);
   api = inject(ApiService);
 
@@ -61,11 +59,11 @@ export class OneTaskComponent implements OnInit {
     while(priority--) {
       this.priorityArr.push(priority);
     }
-  }  
+  }
 
 
   handleStatusClick(id = this.item.id) {
-    
+
     for(let task of this.tasksData) {
       if(task.id === id) {
         if(task.status === "completed") {
@@ -88,7 +86,7 @@ export class OneTaskComponent implements OnInit {
     });
 
   }
-  
+
   handleTaskClick(id = this.item._id) {
     this.router.navigate(['/task', id]);
   }
@@ -104,7 +102,7 @@ export class OneTaskComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.delete.emit(this.item._id);
+        this.delete.emit(this.item?._id);
       }
     });
   }

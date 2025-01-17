@@ -12,15 +12,12 @@ import { CommonModule } from '@angular/common';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 import { DataService } from '../../services/data.service';
-import { MatDialog } from '@angular/material/dialog';
-import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 import { ApiService } from '../../services/api.service';
 import { DialogService } from '../../services/dialog.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { nextTick } from 'process';
 
 interface Task {
-  id: string; 
+  id: string;
   title: string;
   desc: string;
   category: string;
@@ -46,13 +43,12 @@ interface Task {
     MatDividerModule,
     MatButtonModule,
     ReactiveFormsModule,
-    DialogBoxComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.css'
 })
-export class AddTaskComponent implements OnInit {  
+export class AddTaskComponent implements OnInit {
 
   taskInfo: FormGroup = new FormGroup({
     id : new FormControl(''),
@@ -105,16 +101,16 @@ export class AddTaskComponent implements OnInit {
           },
           error : (err: any) => {
             console.error(err);
-          }   
+          }
         })
       }
     })
-  }  
+  }
 
   fetchData() {
     this.api.getData("/user-tasks").subscribe({
       next: (data: any) => {
-        this.tasksData = data;
+        this.tasksData = data.tasksData;
         console.log("tasksData", data)
       },
       error: (err: any) => {
@@ -139,7 +135,7 @@ export class AddTaskComponent implements OnInit {
       postedAt : String(new Date()).slice(4, 15),
       status : "incomplete"
     })
-    
+
   }
 
   handleSubmit() {
@@ -147,7 +143,7 @@ export class AddTaskComponent implements OnInit {
     if (this.taskInfo.valid) {
       const formData = this.taskInfo.value;
       formData.id = this.getRandomUniqueId();
-      formData.deadline = String(formData.deadline).slice(4, 15); 
+      formData.deadline = String(formData.deadline).slice(4, 15);
       this.tasksData.push(formData);
 
       this.api.postData("/add-task", formData).subscribe({
@@ -160,8 +156,8 @@ export class AddTaskComponent implements OnInit {
         error : (err) => {
           console.log("Can't add task, try again");
         }
-      })      
-      
+      })
+
     } else {
       console.log("Task is invalid");
     }
@@ -177,7 +173,7 @@ export class AddTaskComponent implements OnInit {
       return;
     }
 
-    if(newCat === "") {      
+    if(newCat === "") {
       this.dialog.openDialog("Please enter a new Category");
       return;
     }
@@ -187,25 +183,25 @@ export class AddTaskComponent implements OnInit {
         this.taskInfo.get("newCategory")?.setValue("");
         this.dialog.openDialog("New category added successfully");
         this.cats.push(res.newCat);
-        
+
       },
       error : (err) => {
         console.log(err);
       }
     })
-    
+
   }
 
   getRandomUniqueId() {
 
-    let randomId = String(Math.floor(Math.random()*10000)); 
+    let randomId = String(Math.floor(Math.random()*10000));
 
     while(1){
-      const exists = this?.tasksData.some(item => item.is === randomId);
+      const exists = this?.tasksData?.some(item => item._id === randomId);
       // console.log("exists : " ,randomId)
       if (exists)
       {
-        randomId = String(Math.floor(Math.random()*10000));        
+        randomId = String(Math.floor(Math.random()*10000));
       } else {
         break;
       }
@@ -216,7 +212,7 @@ export class AddTaskComponent implements OnInit {
 
   async deleteCategory(idx : any) {
     // console.log(id);
-    
+
     const flag = await this.dialog.openDialog("Are yous sure you want to delete the category?");
 
     const id = this.cats[idx]._id;
@@ -250,7 +246,7 @@ export class AddTaskComponent implements OnInit {
       }
     })
   }
-  
+
   // openDialog(msg: string, id : any = null): void{
   //   const dialogRef = this.dialog.open(DialogBoxComponent, {
   //     width: '300px',
@@ -258,7 +254,7 @@ export class AddTaskComponent implements OnInit {
   //       title: 'Alert',
   //       message: msg
   //     }
-  //   })    
+  //   })
 
   //   dialogRef.afterClosed().subscribe(result => {
   //     if(result) {

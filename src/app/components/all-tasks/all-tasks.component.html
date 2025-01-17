@@ -2,60 +2,60 @@
 <section  style="width: 98%; margin: auto; margin-top: 20px; padding-bottom: 30px;">
 
     <h4 style="
-        text-align: center; 
-        color:var(--main-text); 
-        font-weight: 500; 
+        text-align: center;
+        color:var(--main-text);
+        font-weight: 500;
         cursor: pointer;"
     >
         Dashboard
-    </h4>    
+    </h4>
 
     <ng-container *ngIf="tasksData; else exception">
-    
+
         <ng-container *ngIf="tasksData.length > 0; else loading" >
 
             <section class="filters" style="display: flex; flex-direction: column;  margin-top: 30px;"  >
 
-                <app-filters (filterString)="receiveData($event)" 
-                    [tasksData]="tasksData" 
-                    [categories]="categories" 
+                <app-filters (filterString)="receiveData($event)"
+                    [tasksData]="tasksData"
+                    [categories]="categories"
                     style="
                         display: flex;
                         column-gap: 20px;
-                        justify-content: space-evenly; 
+                        justify-content: space-evenly;
                         flex-wrap: wrap;"
                 />
-            
+
             </section>
-            
-            <section class="tasks-container" style="margin-bottom: 20px; margin-top: 30px;">   
-        
+
+            <section class="tasks-container" style="margin-bottom: 20px; margin-top: 30px;">
+
                 <ng-container *ngFor="let item of filteredTasks" >
-                    <app-one-task [tasksData]="tasksData" [item]="item" (delete)="deleteTask(item._id)"/>
+                    <app-one-task [tasksData]="tasksData" [item]="item" (delete)="deleteTask($event)"/>
                 </ng-container>
-                
+
             </section>
 
         </ng-container>
 
     </ng-container >
-    
-    
+
+
     <ng-template #exception>
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <div style="display: flex; height: 50vh; flex-direction: column; align-items: center; justify-content: center;">
             <h5>No tasks were added yet</h5>
             <div class="example-button-row">
                 <button routerLink="/add-task" mat-flat-button>Add a Task</button>
             </div>
         </div>
-    
+
     </ng-template>
 
     <ng-template #loading>
         <div style="width: 100%; height: 500px; display: grid; place-items: center;">
             <mat-spinner></mat-spinner>
         </div>
-    
+
     </ng-template>
 
 </section>

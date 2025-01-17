@@ -36,7 +36,7 @@ import { ApiService } from '../../services/api.service';
   styleUrl: './all-tasks.component.css'
 })
 export class AllTasksComponent implements OnInit {
-    
+
   data = inject(DataService);
   router = inject(Router);
 
@@ -47,24 +47,24 @@ export class AllTasksComponent implements OnInit {
   selectedSorting = "date";
   selectedOrder = "des";
 
-  tasksData: any[] | null = [];
-  filteredTasks: any[] = [];
-  categories: any[] = [];  
+  tasksData: any = null;
+  filteredTasks: any = [];
+  categories: any[] = [];
 
   constructor(
-    private api : ApiService    
+    private api : ApiService
   ) {}
 
   ngOnInit(): void {
 
       this.api.getData("/user-tasks").subscribe({
         next : (data) => {
-          if(data.length === 0) {
+          if(data.totalTasksCount === 0) {
             this.tasksData = null;
           } else {
-            this.tasksData = data;
+            this.tasksData = data.tasksData;
           }
-          this.filteredTasks = [...data];
+          this.filteredTasks = this.tasksData;
           console.log("task data",this.tasksData);
           console.log("filtered",this.filteredTasks);
         },
@@ -83,7 +83,7 @@ export class AllTasksComponent implements OnInit {
           console.log(err);
         }
       })
-            
+
   }
 
 
@@ -103,29 +103,31 @@ export class AllTasksComponent implements OnInit {
 
     this.handleFilter();
     this.handleSorting();
-    
+
   }
 
   deleteTask(id: any) {
-    
-    // console.log(this.tasksData);
+
+    console.log('id', id);
 
     this.api.deleteData("/delete-task/" + id).subscribe({
       next : (data) => {
         // console.log(data);
-        const index = this.tasksData?.indexOf(data.res);
-        if(index) {
-          this.tasksData?.splice(index, 1);
-        }
-        if(this.tasksData) {
-          this.filteredTasks = [...this.tasksData]
+        this.tasksData = this.tasksData?.filter((task: any) => task._id !== id);
+
+        // Update the filteredTasks array to reflect the deletion
+        this.filteredTasks = this.tasksData ? [...this.tasksData] : [];
+
+        // If no tasks remain, set tasksData to null to trigger the UI fallback
+        if (this.tasksData.length === 0) {
+          this.tasksData = null;
         }
       },
       error : (err) => {
         console.log(err);
       }
     });
-     
+
   }
 
   handleFilter() {
@@ -155,7 +157,7 @@ export class AllTasksComponent implements OnInit {
   handleSorting() {
 
     switch(this.selectedSorting) {
-      case 'date' : 
+      case 'date' :
       this.filteredTasks.sort( (item1: any, item2: any) => {
         const date1 = new Date(item1.postedAt);
         const date2 = new Date(item2.postedAt);
@@ -167,25 +169,25 @@ export class AllTasksComponent implements OnInit {
           }
         }
         if(this.selectedOrder === 'asc') {
-          return date1.getDate() - date2.getDate();          
+          return date1.getDate() - date2.getDate();
         } else {
-          return date2.getDate() - date1.getDate();        
+          return date2.getDate() - date1.getDate();
 
         }
-      })      
+      })
       break;
 
-      case 'priority' : 
+      case 'priority' :
       this.filteredTasks.sort( (item1: any, item2: any) => {
         if(this.selectedOrder === 'asc') {
           return item1.priority.localeCompare(item2.priority);
         } else {
           return item2.priority.localeCompare(item1.priority);
         }
-      })      
+      })
       break;
 
-      case 'deadline' : 
+      case 'deadline' :
       this.filteredTasks.sort( (item1: any, item2: any) => {
         const date1 = new Date(item1.deadline);
         const date2 = new Date(item2.deadline);
@@ -203,9 +205,9 @@ export class AllTasksComponent implements OnInit {
           return date2.getDate() - date1.getDate();
 
         }
-      })      
+      })
       break;
-      
+
     }
 
   }
@@ -213,14 +215,14 @@ export class AllTasksComponent implements OnInit {
 
   // trackById(index: number, item: any): number {
   //   return item.id;
-  // }  
+  // }
 
   // resetFiltersAndSorting() {
   //   this.selectedCat = "all";
   //   this.selectedStatus = "all";
   //   this.selectedSorting = "date";
   //   this.selectedOrder = "asc";
-    
+
   //   this.handleFilter();
   //   this.handleSorting();
   // }

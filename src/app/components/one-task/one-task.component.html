@@ -1,13 +1,13 @@
 
 <mat-card
-    appearance="outlined" 
-    class="task-card" 
-    style="cursor: pointer; 
-        padding: 20px; 
+    appearance="outlined"
+    class="task-card"
+    style="cursor: pointer;
+        padding: 20px;
         padding-bottom: 10px;
         width: 380px;
         "
-        
+
     [ngStyle] = "{
         'background-color' : item?.status === 'completed' ? '#fde8ef' : '#fff',
     }"
@@ -19,15 +19,15 @@
                 flex-direction: row;
                 gap: 0px;
             ">
-            <ng-container *ngFor="let i of priorityArr" 
+            <ng-container *ngFor="let i of priorityArr"
                 >
-                <img src="https://cdn-icons-png.flaticon.com/128/15336/15336296.png" style="height: 20px; display: inline;" />            
+                <img src="https://cdn-icons-png.flaticon.com/128/15336/15336296.png" style="height: 20px; display: inline;" />
             </ng-container>
-    
+
         </div>
 
         <div style="
-            border: 1px solid var(--main-text); 
+            border: 1px solid var(--main-text);
             padding: 0px 10px;
             border-radius: 10px;
             color: var(--main-text);
@@ -39,10 +39,10 @@
 
 
     <h6 (click)="handleTaskClick()" style="margin: 10px 0px; color: var(--main-text);">{{item?.title.slice(0, 25) + (item.title.length>25 ? "..." : "")}}</h6>
-    
-    
-    <div>
-        {{item?.desc.slice(0, 70) + (item.desc.length>70 ? "..." : "")}}
+
+
+    <div style="white-space: nowrap; text-overflow: ellipsis; overflow-x: hidden; ">
+        {{item?.desc}}
     </div>
 
 
@@ -57,9 +57,9 @@
         display: flex;
         justify-content: space-between;
         font-size: 0.8rem;">
-        
-        <div>{{item?.postedAt}}</div>
-        <div>{{item?.deadline}}</div>
+
+        <div>{{item?.postedAt | date}}</div>
+        <div>{{item?.deadline | date}}</div>
     </div>
 
     <div style="display: flex;
@@ -71,7 +71,7 @@
             width: 9px;
             border-radius: 100%;
             z-index: 10;">
-    
+
         </div>
         <div style="width: 40%;
             height: 10px;
@@ -87,7 +87,7 @@
             z-index: 10;
             position: relative;
             right: 6px;">
-    
+
         </div>
 
     </div>
@@ -101,12 +101,12 @@
             top: -15px;
             right: -15px;">
 
-    <!-- <div class="task-foot" 
-        style="display: flex; 
-            justify-content: 
+    <!-- <div class="task-foot"
+        style="display: flex;
+            justify-content:
             space-between;">
 
-        <div class="task-chips" 
+        <div class="task-chips"
             style="display: flex;
                 gap: 10px;
                 ">
@@ -121,8 +121,7 @@
         <mat-chip>deadline : {{item?.deadline}}</mat-chip>
     </div> -->
 
-    
 
-</mat-card>    
-        
-    
+
+</mat-card>
+
