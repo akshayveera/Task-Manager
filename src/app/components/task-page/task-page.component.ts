@@ -25,7 +25,7 @@ interface Task {
 @Component({
   selector: 'app-task-page',
   standalone: true,
-  imports: [ 
+  imports: [
     MatCardModule,
     CommonModule,
     MatProgressBarModule,
@@ -35,7 +35,6 @@ interface Task {
     MatButtonModule,
     TitleCasePipe,
     RouterLink,
-    DialogBoxComponent,
     RouterLink
    ],
   templateUrl: './task-page.component.html',
@@ -48,13 +47,13 @@ export class TaskPageComponent implements OnInit {
   tasksData: any[] = [];
   taskDetails: any  = null;
   priorityArr: number[] = [];
-  
+
   route = inject(ActivatedRoute);
   router = inject(Router);
   api = inject(ApiService);
   dialog = inject(MatDialog);
 
-  
+
 
   ngOnInit(): void {
 
@@ -62,7 +61,7 @@ export class TaskPageComponent implements OnInit {
       this.taskId = params.get("id");
     })
 
-    
+
 
     this.api.getData("/task/" + this.taskId).subscribe({
       next : (data: any) => {
@@ -71,15 +70,15 @@ export class TaskPageComponent implements OnInit {
 
         let priority = Number(this.taskDetails?.priority);
         while(priority--) {
-          this.priorityArr.push(priority); 
+          this.priorityArr.push(priority);
         }
       },
       error : (err: any) => {
         console.error(err);
-      }   
+      }
     })
 
-    
+
   }
 
   handleStatusClick() {
@@ -113,7 +112,7 @@ export class TaskPageComponent implements OnInit {
         console.log(err);
       }
     })
-    
+
     this.router.navigateByUrl("");
 
   }
@@ -138,6 +137,6 @@ export class TaskPageComponent implements OnInit {
     });
   }
 
-  
+
 
 }

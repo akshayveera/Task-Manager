@@ -1,19 +1,19 @@
 
 
 <section class="container">
-    
+
     <article class="left">
-        <img src="assets/login.jpg" alt="">  
+        <img src="assets/login.jpg" alt="">
         <div class="quote">
-            <p >Either run the day,</p>      
-            <p >or the day runs you</p>      
-        </div>      
+            <p >Either run the day,</p>
+            <p >or the day runs you</p>
+        </div>
     </article>
 
     <article class="right">
 
         <h5>Login</h5>
-        
+
         <form class="form" [formGroup]="loginData" (ngSubmit)="loginUser()" >
 
             <mat-form-field class="example-full-width email">
@@ -36,8 +36,6 @@
                   mat-icon-button
                   matSuffix
                   (click)="clickEvent($event)"
-                  [attr.aria-label]="'Hide password'"
-                  [attr.aria-pressed]="hide()"
                 >
                   <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
@@ -48,13 +46,13 @@
                 <mat-error *ngIf="loginData.get('password')?.hasError('required')">
                     Password is <strong>required</strong>
                 </mat-error>
-            </mat-form-field>   
+            </mat-form-field>
 
             <button type="submit" mat-flat-button>Login</button>
         </form>
 
 
         <p routerLink="/register">Not yet registered?</p>
-        
+
     </article>
 </section>

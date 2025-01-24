@@ -42,7 +42,7 @@ interface Task {
     CommonModule,
     MatDividerModule,
     MatButtonModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './add-task.component.html',
@@ -110,7 +110,7 @@ export class AddTaskComponent implements OnInit {
   fetchData() {
     this.api.getData("/user-tasks").subscribe({
       next: (data: any) => {
-        this.tasksData = data.tasksData;
+        this.tasksData = data.tasksData || [];
         console.log("tasksData", data)
       },
       error: (err: any) => {
@@ -144,7 +144,8 @@ export class AddTaskComponent implements OnInit {
       const formData = this.taskInfo.value;
       formData.id = this.getRandomUniqueId();
       formData.deadline = String(formData.deadline).slice(4, 15);
-      this.tasksData.push(formData);
+      console.log("tasksData",this.tasksData);
+      this.tasksData?.push(formData);
 
       this.api.postData("/add-task", formData).subscribe({
         next : (res) => {
@@ -183,7 +184,6 @@ export class AddTaskComponent implements OnInit {
         this.taskInfo.get("newCategory")?.setValue("");
         this.dialog.openDialog("New category added successfully");
         this.cats.push(res.newCat);
-
       },
       error : (err) => {
         console.log(err);

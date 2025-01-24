@@ -47,7 +47,7 @@ export class AllTasksComponent implements OnInit {
   selectedSorting = "date";
   selectedOrder = "des";
 
-  tasksData: any = null;
+  tasksData: any = [];
   filteredTasks: any = [];
   categories: any[] = [];
 
@@ -59,11 +59,7 @@ export class AllTasksComponent implements OnInit {
 
       this.api.getData("/user-tasks").subscribe({
         next : (data) => {
-          if(data.totalTasksCount === 0) {
-            this.tasksData = null;
-          } else {
-            this.tasksData = data.tasksData;
-          }
+          this.tasksData = data.length == 0 ? null : data;
           this.filteredTasks = this.tasksData;
           console.log("task data",this.tasksData);
           console.log("filtered",this.filteredTasks);

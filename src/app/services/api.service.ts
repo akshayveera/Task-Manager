@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-  private baseUrl = "http://localhost:3000/api/v1";
+  private baseUrl = "https://taskmanagerserverapp.vercel.app/api/v1";
 
   constructor(private http: HttpClient) { }
 
@@ -17,7 +17,7 @@ export class ApiService {
       return this.http.get(this.baseUrl + tailUrl);
     }
     return this.http.get<any>(this.baseUrl + tailUrl, options);
-    
+
   }
 
   postData(tailUrl: string, payload: any) : Observable<any> {
