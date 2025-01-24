@@ -1,3 +1,6 @@
+
+### link of hosted site : https://taskmanagersite.vercel.app/
+
 Repository for its backend : https://github.com/akshayveera/Task-Manager-Server
 
 This is a task manager app, which include following features
