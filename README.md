@@ -11,3 +11,8 @@ This is a task manager app, which include following features
 5) REST APIs
 6) JWT Token based authentication
 7) Intutitive and Responsive UI
+
+![image](https://github.com/user-attachments/assets/a95e942d-2c0d-4a27-8073-2dc43a0deec1)
+
+![image](https://github.com/user-attachments/assets/ea14598b-914e-4ca0-8052-43b55283f3f3)
+
