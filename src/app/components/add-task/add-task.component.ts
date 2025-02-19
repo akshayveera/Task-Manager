@@ -78,6 +78,8 @@ export class AddTaskComponent implements OnInit {
   ngOnInit(): void {
     this.fetchData();
 
+    console.log("params",this.route.snapshot.params?.['id']);
+
     this.route.paramMap.subscribe((params)=>{
       if(params.get("id")) {
         this.taskId = params.get('id');
@@ -136,6 +138,10 @@ export class AddTaskComponent implements OnInit {
       status : "incomplete"
     })
 
+  }
+
+  handleCancel() {
+    this.router.navigateByUrl('');
   }
 
   handleSubmit() {

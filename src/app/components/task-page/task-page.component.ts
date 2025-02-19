@@ -10,6 +10,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from '../../services/api.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 interface Task {
   id: string;
@@ -35,7 +36,8 @@ interface Task {
     MatButtonModule,
     TitleCasePipe,
     RouterLink,
-    RouterLink
+    RouterLink,
+    MatProgressSpinnerModule
    ],
   templateUrl: './task-page.component.html',
   styleUrl: './task-page.component.css',

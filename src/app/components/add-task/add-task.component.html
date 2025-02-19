@@ -19,10 +19,16 @@
             </ng-template>
             
             <div style="display: flex; gap: 10px;">
-                <button mat-flat-button type="button" (click)="handleReset()">Reset</button>
+                <ng-container *ngIf="!taskId ">
+                    <button mat-flat-button type="button" (click)="handleReset()">Reset</button>
+                </ng-container>               
 
                 <ng-container *ngIf="!taskId ">
                     <button mat-flat-button type="submit" [disabled]="taskInfo.invalid">Submit</button>
+                </ng-container>
+
+                <ng-container *ngIf="taskId ">
+                    <button mat-flat-button type="button" (click)="handleCancel()">Cancel</button>
                 </ng-container>
 
                 <ng-container *ngIf="taskId ">
